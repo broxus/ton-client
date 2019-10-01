@@ -43,9 +43,13 @@ class ExampleApp {
         // init ton client first
         client.send(new TonApi.Init(
             new TonApi.Options(
-                config,
-                keystore,
-                false
+                new TonApi.Config(
+                    config, // lite client config
+                    "", // chain name
+                    false, // network callbacks
+                    false // cache usage
+                ),                
+                new TonApi.KeyStoreTypeDirectory(keystore) // or new TonApi.KeyStoreTypeInMemory() 
             )
         ), new TonClient.ResultHandler() {
             
@@ -73,7 +77,7 @@ class ExampleApp {
                             // send gram request to giver
                             client.send(new TonApi.TestGiverSendGrams(
                                 new TonApi.AccountAddress(
-                                    // you account address
+                                    // your account address
                                 ),
                                 giverState.seqno,
                                 5L * 1000000000L, // 5 grams

@@ -89,6 +89,42 @@ public class TonApi {
     /**
      * 
      */
+    public static class Config extends Object {
+        public String config;
+        public String blockchainName;
+        public boolean useCallbacksForNetwork;
+        public boolean ignoreCache;
+
+        /**
+         * 
+         */
+        public Config() {
+        }
+
+        public Config(String config, String blockchainName, boolean useCallbacksForNetwork, boolean ignoreCache) {
+            this.config = config;
+            this.blockchainName = blockchainName;
+            this.useCallbacksForNetwork = useCallbacksForNetwork;
+            this.ignoreCache = ignoreCache;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1538391496;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
     public static class Error extends Object {
         public int code;
         public String message;
@@ -262,6 +298,58 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1978362923;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public abstract static class KeyStoreType extends Object {
+    }
+
+    public static class KeyStoreTypeDirectory extends KeyStoreType {
+        public String directory;
+
+        /**
+         * 
+         */
+        public KeyStoreTypeDirectory() {
+        }
+
+        public KeyStoreTypeDirectory(String directory) {
+            this.directory = directory;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -378990038;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class KeyStoreTypeInMemory extends KeyStoreType {
+
+        /**
+         * 
+         */
+        public KeyStoreTypeInMemory() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2106848825;
 
         /**
          * @return this.CONSTRUCTOR
@@ -478,9 +566,8 @@ public class TonApi {
      * 
      */
     public static class Options extends Object {
-        public String config;
-        public String keystoreDirectory;
-        public boolean useCallbacksForNetwork;
+        public Config config;
+        public KeyStoreType keystoreType;
 
         /**
          * 
@@ -488,16 +575,81 @@ public class TonApi {
         public Options() {
         }
 
-        public Options(String config, String keystoreDirectory, boolean useCallbacksForNetwork) {
+        public Options(Config config, KeyStoreType keystoreType) {
             this.config = config;
-            this.keystoreDirectory = keystoreDirectory;
-            this.useCallbacksForNetwork = useCallbacksForNetwork;
+            this.keystoreType = keystoreType;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -952483001;
+        public static final int CONSTRUCTOR = -1924388359;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class SendGramsResult extends Object {
+        public long sentUntil;
+
+        /**
+         * 
+         */
+        public SendGramsResult() {
+        }
+
+        public SendGramsResult(long sentUntil) {
+            this.sentUntil = sentUntil;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -858318471;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class UnpackedAccountAddress extends Object {
+        public int workchainId;
+        public boolean bounceable;
+        public boolean testnet;
+        public byte[] addr;
+
+        /**
+         * 
+         */
+        public UnpackedAccountAddress() {
+        }
+
+        public UnpackedAccountAddress(int workchainId, boolean bounceable, boolean testnet, byte[] addr) {
+            this.workchainId = workchainId;
+            this.bounceable = bounceable;
+            this.testnet = testnet;
+            this.addr = addr;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1892946998;
 
         /**
          * @return this.CONSTRUCTOR
@@ -877,7 +1029,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 240548986;
+        public static final int CONSTRUCTOR = -2063931155;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1420,35 +1572,39 @@ public class TonApi {
     /**
      * 
      *
-     * <p> Returns {@link Ok Ok} </p>
+     * <p> Returns {@link SendGramsResult SendGramsResult} </p>
      */
     public static class GenericSendGrams extends Function {
         public InputKey privateKey;
         public AccountAddress source;
         public AccountAddress destination;
         public long amount;
+        public int timeout;
+        public boolean allowSendToUninited;
         public byte[] message;
 
         /**
          * Default constructor for a function, which 
          *
-         * <p> Returns {@link Ok Ok} </p>
+         * <p> Returns {@link SendGramsResult SendGramsResult} </p>
          */
         public GenericSendGrams() {
         }
 
-        public GenericSendGrams(InputKey privateKey, AccountAddress source, AccountAddress destination, long amount, byte[] message) {
+        public GenericSendGrams(InputKey privateKey, AccountAddress source, AccountAddress destination, long amount, int timeout, boolean allowSendToUninited, byte[] message) {
             this.privateKey = privateKey;
             this.source = source;
             this.destination = destination;
             this.amount = amount;
+            this.timeout = timeout;
+            this.allowSendToUninited = allowSendToUninited;
             this.message = message;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1523427648;
+        public static final int CONSTRUCTOR = -758801136;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1850,7 +2006,7 @@ public class TonApi {
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class OptionsSetConfig extends Function {
-        public String config;
+        public Config config;
 
         /**
          * Default constructor for a function, which 
@@ -1860,14 +2016,48 @@ public class TonApi {
         public OptionsSetConfig() {
         }
 
-        public OptionsSetConfig(String config) {
+        public OptionsSetConfig(Config config) {
             this.config = config;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 21225546;
+        public static final int CONSTRUCTOR = 646497241;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link AccountAddress AccountAddress} </p>
+     */
+    public static class PackAccountAddress extends Function {
+        public UnpackedAccountAddress accountAddress;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link AccountAddress AccountAddress} </p>
+         */
+        public PackAccountAddress() {
+        }
+
+        public PackAccountAddress(UnpackedAccountAddress accountAddress) {
+            this.accountAddress = accountAddress;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1388561940;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2253,7 +2443,7 @@ public class TonApi {
     /**
      * 
      *
-     * <p> Returns {@link Ok Ok} </p>
+     * <p> Returns {@link SendGramsResult SendGramsResult} </p>
      */
     public static class TestGiverSendGrams extends Function {
         public AccountAddress destination;
@@ -2264,7 +2454,7 @@ public class TonApi {
         /**
          * Default constructor for a function, which 
          *
-         * <p> Returns {@link Ok Ok} </p>
+         * <p> Returns {@link SendGramsResult SendGramsResult} </p>
          */
         public TestGiverSendGrams() {
         }
@@ -2279,7 +2469,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1361914347;
+        public static final int CONSTRUCTOR = -1785750375;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2395,7 +2585,7 @@ public class TonApi {
     /**
      * 
      *
-     * <p> Returns {@link Ok Ok} </p>
+     * <p> Returns {@link SendGramsResult SendGramsResult} </p>
      */
     public static class TestWalletSendGrams extends Function {
         public InputKey privateKey;
@@ -2407,7 +2597,7 @@ public class TonApi {
         /**
          * Default constructor for a function, which 
          *
-         * <p> Returns {@link Ok Ok} </p>
+         * <p> Returns {@link SendGramsResult SendGramsResult} </p>
          */
         public TestWalletSendGrams() {
         }
@@ -2423,7 +2613,41 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 43200674;
+        public static final int CONSTRUCTOR = 1290131585;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link UnpackedAccountAddress UnpackedAccountAddress} </p>
+     */
+    public static class UnpackAccountAddress extends Function {
+        public String accountAddress;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link UnpackedAccountAddress UnpackedAccountAddress} </p>
+         */
+        public UnpackAccountAddress() {
+        }
+
+        public UnpackAccountAddress(String accountAddress) {
+            this.accountAddress = accountAddress;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -682459063;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2539,7 +2763,7 @@ public class TonApi {
     /**
      * 
      *
-     * <p> Returns {@link Ok Ok} </p>
+     * <p> Returns {@link SendGramsResult SendGramsResult} </p>
      */
     public static class WalletSendGrams extends Function {
         public InputKey privateKey;
@@ -2552,7 +2776,7 @@ public class TonApi {
         /**
          * Default constructor for a function, which 
          *
-         * <p> Returns {@link Ok Ok} </p>
+         * <p> Returns {@link SendGramsResult SendGramsResult} </p>
          */
         public WalletSendGrams() {
         }
@@ -2569,7 +2793,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 789731197;
+        public static final int CONSTRUCTOR = -1837893526;
 
         /**
          * @return this.CONSTRUCTOR
