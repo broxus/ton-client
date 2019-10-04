@@ -7,3 +7,4 @@ target
 /.settings
 custom.conf
 /RUNNING_PID
+/build/ton

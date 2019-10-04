@@ -22,6 +22,23 @@ Example docker and http api
 ----
 You can find docker example and simple http api [here](https://github.com/broxus/ton-api).
 
+Build native-lib
+----
+You can use [docker](docker/Dockerfile) container to build native-lib from sources.
+```bash
+# run this commands in repo root
+
+# prepare builder container with all needed dependencies
+docker build --tag ton-builder -f docker/Dockerfile .
+
+# now run build process
+docker run -ti --rm --mount type=bind,source="$(pwd)/build",target=/workdir/build ton-builder
+
+# copy native lib and updated src
+cp build/ton/example/android/build/libnative-lib.so src/main/resources/nativelib/libnative-lib.so
+cp build/ton/example/android/src/io/broxus/ton/TonApi.java src/main/java/io/broxus/ton/TonApi.java
+```
+
 Example
 ----
 ```java
