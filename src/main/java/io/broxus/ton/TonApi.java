@@ -125,6 +125,36 @@ public class TonApi {
     /**
      * 
      */
+    public static class Data extends Object {
+        public byte[] bytes;
+
+        /**
+         * 
+         */
+        public Data() {
+        }
+
+        public Data(byte[] bytes) {
+            this.bytes = bytes;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -414733967;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
     public static class Error extends Object {
         public int code;
         public String message;
@@ -599,6 +629,7 @@ public class TonApi {
      */
     public static class SendGramsResult extends Object {
         public long sentUntil;
+        public byte[] bodyHash;
 
         /**
          * 
@@ -606,14 +637,15 @@ public class TonApi {
         public SendGramsResult() {
         }
 
-        public SendGramsResult(long sentUntil) {
+        public SendGramsResult(long sentUntil, byte[] bodyHash) {
             this.sentUntil = sentUntil;
+            this.bodyHash = bodyHash;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -858318471;
+        public static final int CONSTRUCTOR = 426872238;
 
         /**
          * @return this.CONSTRUCTOR
@@ -870,6 +902,7 @@ public class TonApi {
         public byte[] code;
         public byte[] data;
         public InternalTransactionId lastTransactionId;
+        public byte[] frozenHash;
         public long syncUtime;
 
         /**
@@ -878,18 +911,19 @@ public class TonApi {
         public RawAccountState() {
         }
 
-        public RawAccountState(long balance, byte[] code, byte[] data, InternalTransactionId lastTransactionId, long syncUtime) {
+        public RawAccountState(long balance, byte[] code, byte[] data, InternalTransactionId lastTransactionId, byte[] frozenHash, long syncUtime) {
             this.balance = balance;
             this.code = code;
             this.data = data;
             this.lastTransactionId = lastTransactionId;
+            this.frozenHash = frozenHash;
             this.syncUtime = syncUtime;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 461615898;
+        public static final int CONSTRUCTOR = 1205935434;
 
         /**
          * @return this.CONSTRUCTOR
@@ -939,6 +973,10 @@ public class TonApi {
         public String source;
         public String destination;
         public long value;
+        public long fwdFee;
+        public long ihrFee;
+        public long createdLt;
+        public byte[] bodyHash;
         public byte[] message;
 
         /**
@@ -947,17 +985,21 @@ public class TonApi {
         public RawMessage() {
         }
 
-        public RawMessage(String source, String destination, long value, byte[] message) {
+        public RawMessage(String source, String destination, long value, long fwdFee, long ihrFee, long createdLt, byte[] bodyHash, byte[] message) {
             this.source = source;
             this.destination = destination;
             this.value = value;
+            this.fwdFee = fwdFee;
+            this.ihrFee = ihrFee;
+            this.createdLt = createdLt;
+            this.bodyHash = bodyHash;
             this.message = message;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -259956097;
+        public static final int CONSTRUCTOR = -906281442;
 
         /**
          * @return this.CONSTRUCTOR
@@ -976,6 +1018,8 @@ public class TonApi {
         public byte[] data;
         public InternalTransactionId transactionId;
         public long fee;
+        public long storageFee;
+        public long otherFee;
         public RawMessage inMsg;
         public RawMessage[] outMsgs;
 
@@ -985,11 +1029,13 @@ public class TonApi {
         public RawTransaction() {
         }
 
-        public RawTransaction(long utime, byte[] data, InternalTransactionId transactionId, long fee, RawMessage inMsg, RawMessage[] outMsgs) {
+        public RawTransaction(long utime, byte[] data, InternalTransactionId transactionId, long fee, long storageFee, long otherFee, RawMessage inMsg, RawMessage[] outMsgs) {
             this.utime = utime;
             this.data = data;
             this.transactionId = transactionId;
             this.fee = fee;
+            this.storageFee = storageFee;
+            this.otherFee = otherFee;
             this.inMsg = inMsg;
             this.outMsgs = outMsgs;
         }
@@ -997,7 +1043,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1159530820;
+        public static final int CONSTRUCTOR = 1887601793;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1148,6 +1194,7 @@ public class TonApi {
     public static class UninitedAccountState extends Object {
         public long balance;
         public InternalTransactionId lastTransactionId;
+        public byte[] frozenHash;
         public long syncUtime;
 
         /**
@@ -1156,16 +1203,17 @@ public class TonApi {
         public UninitedAccountState() {
         }
 
-        public UninitedAccountState(long balance, InternalTransactionId lastTransactionId, long syncUtime) {
+        public UninitedAccountState(long balance, InternalTransactionId lastTransactionId, byte[] frozenHash, long syncUtime) {
             this.balance = balance;
             this.lastTransactionId = lastTransactionId;
+            this.frozenHash = frozenHash;
             this.syncUtime = syncUtime;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1768941188;
+        public static final int CONSTRUCTOR = -918880075;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1398,6 +1446,71 @@ public class TonApi {
     /**
      * 
      *
+     * <p> Returns {@link Data Data} </p>
+     */
+    public static class Decrypt extends Function {
+        public byte[] encryptedData;
+        public byte[] secret;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link Data Data} </p>
+         */
+        public Decrypt() {
+        }
+
+        public Decrypt(byte[] encryptedData, byte[] secret) {
+            this.encryptedData = encryptedData;
+            this.secret = secret;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 357991854;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DeleteAllKeys extends Function {
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DeleteAllKeys() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1608776483;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class DeleteKey extends Function {
@@ -1419,6 +1532,42 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1579595571;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link Data Data} </p>
+     */
+    public static class Encrypt extends Function {
+        public byte[] decryptedData;
+        public byte[] secret;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link Data Data} </p>
+         */
+        public Encrypt() {
+        }
+
+        public Encrypt(byte[] decryptedData, byte[] secret) {
+            this.decryptedData = decryptedData;
+            this.secret = secret;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1821422820;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1918,6 +2067,44 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -2014661877;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link Data Data} </p>
+     */
+    public static class Kdf extends Function {
+        public byte[] password;
+        public byte[] salt;
+        public int iterations;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link Data Data} </p>
+         */
+        public Kdf() {
+        }
+
+        public Kdf(byte[] password, byte[] salt, int iterations) {
+            this.password = password;
+            this.salt = salt;
+            this.iterations = iterations;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1667861635;
 
         /**
          * @return this.CONSTRUCTOR
