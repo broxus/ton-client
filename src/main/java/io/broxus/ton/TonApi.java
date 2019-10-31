@@ -2,7 +2,7 @@ package io.broxus.ton;
 
 public class TonApi {
     /**
-     * This class is a base class for all TDLib interface classes.
+     * This class is a base class for all tonlib interface classes.
      */
     public abstract static class Object {
         /**
@@ -17,7 +17,7 @@ public class TonApi {
     }
 
     /**
-     * This class is a base class for all TDLib interface function-classes.
+     * This class is a base class for all tonlib interface function-classes.
      */
     public abstract static class Function extends Object {
         /**
@@ -277,17 +277,53 @@ public class TonApi {
     /**
      * 
      */
-    public static class InputKey extends Object {
+    public static class Fees extends Object {
+        public long inFwdFee;
+        public long storageFee;
+        public long gasFee;
+        public long fwdFee;
+
+        /**
+         * 
+         */
+        public Fees() {
+        }
+
+        public Fees(long inFwdFee, long storageFee, long gasFee, long fwdFee) {
+            this.inFwdFee = inFwdFee;
+            this.storageFee = storageFee;
+            this.gasFee = gasFee;
+            this.fwdFee = fwdFee;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1676273340;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public abstract static class InputKey extends Object {
+    }
+
+    public static class InputKeyRegular extends InputKey {
         public Key key;
         public byte[] localPassword;
 
         /**
          * 
          */
-        public InputKey() {
+        public InputKeyRegular() {
         }
 
-        public InputKey(Key key, byte[] localPassword) {
+        public InputKeyRegular(Key key, byte[] localPassword) {
             this.key = key;
             this.localPassword = localPassword;
         }
@@ -295,7 +331,29 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 869287093;
+        public static final int CONSTRUCTOR = -555399522;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class InputKeyFake extends InputKey {
+
+        /**
+         * 
+         */
+        public InputKeyFake() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1074054722;
 
         /**
          * @return this.CONSTRUCTOR
@@ -392,7 +450,7 @@ public class TonApi {
 
     /**
      * This class is an abstract base class.
-     * Describes a stream to which TDLib internal log is written.
+     * Describes a stream to which tonlib internal log is written.
      */
     public abstract static class LogStream extends Object {
     }
@@ -427,11 +485,11 @@ public class TonApi {
      */
     public static class LogStreamFile extends LogStream {
         /**
-         * Path to the file to where the internal TDLib log will be written.
+         * Path to the file to where the internal tonlib log will be written.
          */
         public String path;
         /**
-         * Maximum size of the file to where the internal TDLib log is written before the file will be auto-rotated.
+         * Maximum size of the file to where the internal tonlib log is written before the file will be auto-rotated.
          */
         public long maxFileSize;
 
@@ -444,8 +502,8 @@ public class TonApi {
         /**
          * The log is written to a file.
          *
-         * @param path Path to the file to where the internal TDLib log will be written.
-         * @param maxFileSize Maximum size of the file to where the internal TDLib log is written before the file will be auto-rotated.
+         * @param path Path to the file to where the internal tonlib log will be written.
+         * @param maxFileSize Maximum size of the file to where the internal tonlib log is written before the file will be auto-rotated.
          */
         public LogStreamFile(String path, long maxFileSize) {
             this.path = path;
@@ -492,7 +550,7 @@ public class TonApi {
     }
 
     /**
-     * Contains a list of available TDLib internal log tags.
+     * Contains a list of available tonlib internal log tags.
      */
     public static class LogTags extends Object {
         /**
@@ -501,13 +559,13 @@ public class TonApi {
         public String[] tags;
 
         /**
-         * Contains a list of available TDLib internal log tags.
+         * Contains a list of available tonlib internal log tags.
          */
         public LogTags() {
         }
 
         /**
-         * Contains a list of available TDLib internal log tags.
+         * Contains a list of available tonlib internal log tags.
          *
          * @param tags List of log tags.
          */
@@ -530,7 +588,7 @@ public class TonApi {
     }
 
     /**
-     * Contains a TDLib internal log verbosity level.
+     * Contains a tonlib internal log verbosity level.
      */
     public static class LogVerbosityLevel extends Object {
         /**
@@ -539,13 +597,13 @@ public class TonApi {
         public int verbosityLevel;
 
         /**
-         * Contains a TDLib internal log verbosity level.
+         * Contains a tonlib internal log verbosity level.
          */
         public LogVerbosityLevel() {
         }
 
         /**
-         * Contains a TDLib internal log verbosity level.
+         * Contains a tonlib internal log verbosity level.
          *
          * @param verbosityLevel Log verbosity level.
          */
@@ -656,6 +714,62 @@ public class TonApi {
         }
     }
 
+    public abstract static class SyncState extends Object {
+    }
+
+    public static class SyncStateDone extends SyncState {
+
+        /**
+         * 
+         */
+        public SyncStateDone() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1408448777;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class SyncStateInProgress extends SyncState {
+        public int fromSeqno;
+        public int toSeqno;
+        public int currentSeqno;
+
+        /**
+         * 
+         */
+        public SyncStateInProgress() {
+        }
+
+        public SyncStateInProgress(int fromSeqno, int toSeqno, int currentSeqno) {
+            this.fromSeqno = fromSeqno;
+            this.toSeqno = toSeqno;
+            this.currentSeqno = currentSeqno;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 107726023;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
     /**
      * 
      */
@@ -692,10 +806,10 @@ public class TonApi {
         }
     }
 
-    /**
-     * 
-     */
-    public static class UpdateSendLiteServerQuery extends Object {
+    public abstract static class Update extends Object {
+    }
+
+    public static class UpdateSendLiteServerQuery extends Update {
         public long id;
         public byte[] data;
 
@@ -714,6 +828,33 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1555130916;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class UpdateSyncState extends Update {
+        public SyncState syncState;
+
+        /**
+         * 
+         */
+        public UpdateSyncState() {
+        }
+
+        public UpdateSyncState(SyncState syncState) {
+            this.syncState = syncState;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1204298718;
 
         /**
          * @return this.CONSTRUCTOR
@@ -884,6 +1025,106 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -989527262;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class LiteServerInfo extends Object {
+        public long now;
+        public int version;
+        public long capabilities;
+
+        /**
+         * 
+         */
+        public LiteServerInfo() {
+        }
+
+        public LiteServerInfo(long now, int version, long capabilities) {
+            this.now = now;
+            this.version = version;
+            this.capabilities = capabilities;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1250165133;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class QueryFees extends Object {
+        public Fees sourceFees;
+        public Fees destinationFees;
+
+        /**
+         * 
+         */
+        public QueryFees() {
+        }
+
+        public QueryFees(Fees sourceFees, Fees destinationFees) {
+            this.sourceFees = sourceFees;
+            this.destinationFees = destinationFees;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 725267759;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class QueryInfo extends Object {
+        public long id;
+        public long validUntil;
+        public byte[] bodyHash;
+
+        /**
+         * 
+         */
+        public QueryInfo() {
+        }
+
+        public QueryInfo(long id, long validUntil, byte[] bodyHash) {
+            this.id = id;
+            this.validUntil = validUntil;
+            this.bodyHash = bodyHash;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1588635915;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1089,6 +1330,127 @@ public class TonApi {
     /**
      * 
      */
+    public static class SmcInfo extends Object {
+        public long id;
+
+        /**
+         * 
+         */
+        public SmcInfo() {
+        }
+
+        public SmcInfo(long id) {
+            this.id = id;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1134270012;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public abstract static class SmcMethodId extends Object {
+    }
+
+    public static class SmcMethodIdNumber extends SmcMethodId {
+        public int number;
+
+        /**
+         * 
+         */
+        public SmcMethodIdNumber() {
+        }
+
+        public SmcMethodIdNumber(int number) {
+            this.number = number;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1541162500;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class SmcMethodIdName extends SmcMethodId {
+        public String name;
+
+        /**
+         * 
+         */
+        public SmcMethodIdName() {
+        }
+
+        public SmcMethodIdName(String name) {
+            this.name = name;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -249036908;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class SmcRunResult extends Object {
+        public long gasUsed;
+        public TvmStackEntry[] stack;
+        public int exitCode;
+
+        /**
+         * 
+         */
+        public SmcRunResult() {
+        }
+
+        public SmcRunResult(long gasUsed, TvmStackEntry[] stack, int exitCode) {
+            this.gasUsed = gasUsed;
+            this.stack = stack;
+            this.exitCode = exitCode;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1413805043;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
     public static class TestGiverAccountState extends Object {
         public long balance;
         public int seqno;
@@ -1178,6 +1540,202 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1231516227;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class TvmCell extends Object {
+        public String bytes;
+
+        /**
+         * 
+         */
+        public TvmCell() {
+        }
+
+        public TvmCell(String bytes) {
+            this.bytes = bytes;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -859530316;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class TvmNumberDecimal extends Object {
+        public String number;
+
+        /**
+         * 
+         */
+        public TvmNumberDecimal() {
+        }
+
+        public TvmNumberDecimal(String number) {
+            this.number = number;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1172477619;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class TvmSlice extends Object {
+        public String bytes;
+
+        /**
+         * 
+         */
+        public TvmSlice() {
+        }
+
+        public TvmSlice(String bytes) {
+            this.bytes = bytes;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1069968387;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public abstract static class TvmStackEntry extends Object {
+    }
+
+    public static class TvmStackEntrySlice extends TvmStackEntry {
+        public TvmSlice slice;
+
+        /**
+         * 
+         */
+        public TvmStackEntrySlice() {
+        }
+
+        public TvmStackEntrySlice(TvmSlice slice) {
+            this.slice = slice;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1395485477;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class TvmStackEntryCell extends TvmStackEntry {
+        public TvmCell cell;
+
+        /**
+         * 
+         */
+        public TvmStackEntryCell() {
+        }
+
+        public TvmStackEntryCell(TvmCell cell) {
+            this.cell = cell;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1303473952;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class TvmStackEntryNumber extends TvmStackEntry {
+        public TvmNumberDecimal number;
+
+        /**
+         * 
+         */
+        public TvmStackEntryNumber() {
+        }
+
+        public TvmStackEntryNumber(TvmNumberDecimal number) {
+            this.number = number;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1358642622;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class TvmStackEntryUnsupported extends TvmStackEntry {
+
+        /**
+         * 
+         */
+        public TvmStackEntryUnsupported() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 378880498;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1291,7 +1849,7 @@ public class TonApi {
     }
 
     /**
-     * Adds a message to TDLib internal log. This is an offline method. Can be called before authorization. Can be called synchronously.
+     * Adds a message to tonlib internal log. This is an offline method. Can be called before authorization. Can be called synchronously.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -1306,7 +1864,7 @@ public class TonApi {
         public String text;
 
         /**
-         * Default constructor for a function, which adds a message to TDLib internal log. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Default constructor for a function, which adds a message to tonlib internal log. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -1314,7 +1872,7 @@ public class TonApi {
         }
 
         /**
-         * Creates a function, which adds a message to TDLib internal log. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Creates a function, which adds a message to tonlib internal log. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -1365,7 +1923,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1685491421;
+        public static final int CONSTRUCTOR = -401590337;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1603,7 +2161,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 155352861;
+        public static final int CONSTRUCTOR = 218237311;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1637,7 +2195,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 399723440;
+        public static final int CONSTRUCTOR = -1622353549;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1673,7 +2231,53 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2047752448;
+        public static final int CONSTRUCTOR = -643259462;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link QueryInfo QueryInfo} </p>
+     */
+    public static class GenericCreateSendGramsQuery extends Function {
+        public InputKey privateKey;
+        public AccountAddress source;
+        public AccountAddress destination;
+        public long amount;
+        public int timeout;
+        public boolean allowSendToUninited;
+        public byte[] message;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link QueryInfo QueryInfo} </p>
+         */
+        public GenericCreateSendGramsQuery() {
+        }
+
+        public GenericCreateSendGramsQuery(InputKey privateKey, AccountAddress source, AccountAddress destination, long amount, int timeout, boolean allowSendToUninited, byte[] message) {
+            this.privateKey = privateKey;
+            this.source = source;
+            this.destination = destination;
+            this.amount = amount;
+            this.timeout = timeout;
+            this.allowSendToUninited = allowSendToUninited;
+            this.message = message;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 208206338;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1753,7 +2357,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -758801136;
+        public static final int CONSTRUCTOR = -553513162;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1799,14 +2403,14 @@ public class TonApi {
     }
 
     /**
-     * Returns information about currently used log stream for internal logging of TDLib. This is an offline method. Can be called before authorization. Can be called synchronously.
+     * Returns information about currently used log stream for internal logging of tonlib. This is an offline method. Can be called before authorization. Can be called synchronously.
      *
      * <p> Returns {@link LogStream LogStream} </p>
      */
     public static class GetLogStream extends Function {
 
         /**
-         * Default constructor for a function, which returns information about currently used log stream for internal logging of TDLib. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Default constructor for a function, which returns information about currently used log stream for internal logging of tonlib. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link LogStream LogStream} </p>
          */
@@ -1828,7 +2432,7 @@ public class TonApi {
     }
 
     /**
-     * Returns current verbosity level for a specified TDLib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
+     * Returns current verbosity level for a specified tonlib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
      *
      * <p> Returns {@link LogVerbosityLevel LogVerbosityLevel} </p>
      */
@@ -1839,7 +2443,7 @@ public class TonApi {
         public String tag;
 
         /**
-         * Default constructor for a function, which returns current verbosity level for a specified TDLib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Default constructor for a function, which returns current verbosity level for a specified tonlib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link LogVerbosityLevel LogVerbosityLevel} </p>
          */
@@ -1847,7 +2451,7 @@ public class TonApi {
         }
 
         /**
-         * Creates a function, which returns current verbosity level for a specified TDLib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Creates a function, which returns current verbosity level for a specified tonlib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link LogVerbosityLevel LogVerbosityLevel} </p>
          *
@@ -1872,14 +2476,14 @@ public class TonApi {
     }
 
     /**
-     * Returns list of available TDLib internal log tags, for example, [&quot;actor&quot;, &quot;binlog&quot;, &quot;connections&quot;, &quot;notifications&quot;, &quot;proxy&quot;]. This is an offline method. Can be called before authorization. Can be called synchronously.
+     * Returns list of available tonlib internal log tags, for example, [&quot;actor&quot;, &quot;binlog&quot;, &quot;connections&quot;, &quot;notifications&quot;, &quot;proxy&quot;]. This is an offline method. Can be called before authorization. Can be called synchronously.
      *
      * <p> Returns {@link LogTags LogTags} </p>
      */
     public static class GetLogTags extends Function {
 
         /**
-         * Default constructor for a function, which returns list of available TDLib internal log tags, for example, [&quot;actor&quot;, &quot;binlog&quot;, &quot;connections&quot;, &quot;notifications&quot;, &quot;proxy&quot;]. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Default constructor for a function, which returns list of available tonlib internal log tags, for example, [&quot;actor&quot;, &quot;binlog&quot;, &quot;connections&quot;, &quot;notifications&quot;, &quot;proxy&quot;]. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link LogTags LogTags} </p>
          */
@@ -1901,14 +2505,14 @@ public class TonApi {
     }
 
     /**
-     * Returns current verbosity level of the internal logging of TDLib. This is an offline method. Can be called before authorization. Can be called synchronously.
+     * Returns current verbosity level of the internal logging of tonlib. This is an offline method. Can be called before authorization. Can be called synchronously.
      *
      * <p> Returns {@link LogVerbosityLevel LogVerbosityLevel} </p>
      */
     public static class GetLogVerbosityLevel extends Function {
 
         /**
-         * Default constructor for a function, which returns current verbosity level of the internal logging of TDLib. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Default constructor for a function, which returns current verbosity level of the internal logging of tonlib. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link LogVerbosityLevel LogVerbosityLevel} </p>
          */
@@ -2118,6 +2722,35 @@ public class TonApi {
     /**
      * 
      *
+     * <p> Returns {@link LiteServerInfo LiteServerInfo} </p>
+     */
+    public static class LiteServerGetInfo extends Function {
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link LiteServerInfo LiteServerInfo} </p>
+         */
+        public LiteServerGetInfo() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1435327470;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class OnLiteServerQueryError extends Function {
@@ -2224,6 +2857,40 @@ public class TonApi {
     /**
      * 
      *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class OptionsValidateConfig extends Function {
+        public Config config;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public OptionsValidateConfig() {
+        }
+
+        public OptionsValidateConfig(Config config) {
+            this.config = config;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1146765779;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
      * <p> Returns {@link AccountAddress AccountAddress} </p>
      */
     public static class PackAccountAddress extends Function {
@@ -2245,6 +2912,222 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1388561940;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link QueryFees QueryFees} </p>
+     */
+    public static class QueryEstimateFees extends Function {
+        public long id;
+        public boolean ignoreChksig;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link QueryFees QueryFees} </p>
+         */
+        public QueryEstimateFees() {
+        }
+
+        public QueryEstimateFees(long id, boolean ignoreChksig) {
+            this.id = id;
+            this.ignoreChksig = ignoreChksig;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -957002175;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class QueryForget extends Function {
+        public long id;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public QueryForget() {
+        }
+
+        public QueryForget(long id) {
+            this.id = id;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1211985313;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link QueryInfo QueryInfo} </p>
+     */
+    public static class QueryGetInfo extends Function {
+        public long id;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link QueryInfo QueryInfo} </p>
+         */
+        public QueryGetInfo() {
+        }
+
+        public QueryGetInfo(long id) {
+            this.id = id;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -799333669;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class QuerySend extends Function {
+        public long id;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public QuerySend() {
+        }
+
+        public QuerySend(long id) {
+            this.id = id;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 925242739;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class RawCreateAndSendMessage extends Function {
+        public AccountAddress destination;
+        public byte[] initialAccountState;
+        public byte[] data;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public RawCreateAndSendMessage() {
+        }
+
+        public RawCreateAndSendMessage(AccountAddress destination, byte[] initialAccountState, byte[] data) {
+            this.destination = destination;
+            this.initialAccountState = initialAccountState;
+            this.data = data;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -772224603;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link QueryInfo QueryInfo} </p>
+     */
+    public static class RawCreateQuery extends Function {
+        public AccountAddress destination;
+        public byte[] initCode;
+        public byte[] initData;
+        public byte[] body;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link QueryInfo QueryInfo} </p>
+         */
+        public RawCreateQuery() {
+        }
+
+        public RawCreateQuery(AccountAddress destination, byte[] initCode, byte[] initData, byte[] body) {
+            this.destination = destination;
+            this.initCode = initCode;
+            this.initData = initData;
+            this.body = body;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1928557909;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2365,9 +3248,7 @@ public class TonApi {
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class RawSendMessage extends Function {
-        public AccountAddress destination;
-        public byte[] initialAccountState;
-        public byte[] data;
+        public byte[] body;
 
         /**
          * Default constructor for a function, which 
@@ -2377,16 +3258,14 @@ public class TonApi {
         public RawSendMessage() {
         }
 
-        public RawSendMessage(AccountAddress destination, byte[] initialAccountState, byte[] data) {
-            this.destination = destination;
-            this.initialAccountState = initialAccountState;
-            this.data = data;
+        public RawSendMessage(byte[] body) {
+            this.body = body;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 473889461;
+        public static final int CONSTRUCTOR = -1789427488;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2432,7 +3311,7 @@ public class TonApi {
     }
 
     /**
-     * Sets new log stream for internal logging of TDLib. This is an offline method. Can be called before authorization. Can be called synchronously.
+     * Sets new log stream for internal logging of tonlib. This is an offline method. Can be called before authorization. Can be called synchronously.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -2443,7 +3322,7 @@ public class TonApi {
         public LogStream logStream;
 
         /**
-         * Default constructor for a function, which sets new log stream for internal logging of TDLib. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Default constructor for a function, which sets new log stream for internal logging of tonlib. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -2451,7 +3330,7 @@ public class TonApi {
         }
 
         /**
-         * Creates a function, which sets new log stream for internal logging of TDLib. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Creates a function, which sets new log stream for internal logging of tonlib. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -2476,7 +3355,7 @@ public class TonApi {
     }
 
     /**
-     * Sets the verbosity level for a specified TDLib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
+     * Sets the verbosity level for a specified tonlib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -2491,7 +3370,7 @@ public class TonApi {
         public int newVerbosityLevel;
 
         /**
-         * Default constructor for a function, which sets the verbosity level for a specified TDLib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Default constructor for a function, which sets the verbosity level for a specified tonlib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -2499,7 +3378,7 @@ public class TonApi {
         }
 
         /**
-         * Creates a function, which sets the verbosity level for a specified TDLib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Creates a function, which sets the verbosity level for a specified tonlib internal log tag. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -2526,7 +3405,7 @@ public class TonApi {
     }
 
     /**
-     * Sets the verbosity level of the internal logging of TDLib. This is an offline method. Can be called before authorization. Can be called synchronously.
+     * Sets the verbosity level of the internal logging of tonlib. This is an offline method. Can be called before authorization. Can be called synchronously.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -2537,7 +3416,7 @@ public class TonApi {
         public int newVerbosityLevel;
 
         /**
-         * Default constructor for a function, which sets the verbosity level of the internal logging of TDLib. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Default constructor for a function, which sets the verbosity level of the internal logging of tonlib. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -2545,7 +3424,7 @@ public class TonApi {
         }
 
         /**
-         * Creates a function, which sets the verbosity level of the internal logging of TDLib. This is an offline method. Can be called before authorization. Can be called synchronously.
+         * Creates a function, which sets the verbosity level of the internal logging of tonlib. This is an offline method. Can be called before authorization. Can be called synchronously.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -2559,6 +3438,209 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -303429678;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link TvmCell TvmCell} </p>
+     */
+    public static class SmcGetCode extends Function {
+        public long id;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link TvmCell TvmCell} </p>
+         */
+        public SmcGetCode() {
+        }
+
+        public SmcGetCode(long id) {
+            this.id = id;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2115626088;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link TvmCell TvmCell} </p>
+     */
+    public static class SmcGetData extends Function {
+        public long id;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link TvmCell TvmCell} </p>
+         */
+        public SmcGetData() {
+        }
+
+        public SmcGetData(long id) {
+            this.id = id;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -427601079;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link TvmCell TvmCell} </p>
+     */
+    public static class SmcGetState extends Function {
+        public long id;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link TvmCell TvmCell} </p>
+         */
+        public SmcGetState() {
+        }
+
+        public SmcGetState(long id) {
+            this.id = id;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -214390293;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link SmcInfo SmcInfo} </p>
+     */
+    public static class SmcLoad extends Function {
+        public AccountAddress accountAddress;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link SmcInfo SmcInfo} </p>
+         */
+        public SmcLoad() {
+        }
+
+        public SmcLoad(AccountAddress accountAddress) {
+            this.accountAddress = accountAddress;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -903491521;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link SmcRunResult SmcRunResult} </p>
+     */
+    public static class SmcRunGetMethod extends Function {
+        public long id;
+        public SmcMethodId method;
+        public TvmStackEntry[] stack;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link SmcRunResult SmcRunResult} </p>
+         */
+        public SmcRunGetMethod() {
+        }
+
+        public SmcRunGetMethod(long id, SmcMethodId method, TvmStackEntry[] stack) {
+            this.id = id;
+            this.method = method;
+            this.stack = stack;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -255261270;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class Sync extends Function {
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public Sync() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1617065525;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2758,7 +3840,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 419055225;
+        public static final int CONSTRUCTOR = -1417409140;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2800,7 +3882,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1290131585;
+        public static final int CONSTRUCTOR = 573748322;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2936,7 +4018,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1528056782;
+        public static final int CONSTRUCTOR = -395706309;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2980,7 +4062,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1837893526;
+        public static final int CONSTRUCTOR = 297317621;
 
         /**
          * @return this.CONSTRUCTOR
