@@ -949,6 +949,33 @@ public class TonApi {
         }
     }
 
+    public static class GenericAccountStateWalletV3 extends GenericAccountState {
+        public WalletV3AccountState accountState;
+
+        /**
+         * 
+         */
+        public GenericAccountStateWalletV3() {
+        }
+
+        public GenericAccountStateWalletV3(WalletV3AccountState accountState) {
+            this.accountState = accountState;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -281349583;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
     public static class GenericAccountStateTestGiver extends GenericAccountState {
         public TestGiverAccountState accountState;
 
@@ -1059,6 +1086,66 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1250165133;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class OptionsConfigInfo extends Object {
+        public long defaultWalletId;
+
+        /**
+         * 
+         */
+        public OptionsConfigInfo() {
+        }
+
+        public OptionsConfigInfo(long defaultWalletId) {
+            this.defaultWalletId = defaultWalletId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 165216422;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class OptionsInfo extends Object {
+        public OptionsConfigInfo configInfo;
+
+        /**
+         * 
+         */
+        public OptionsInfo() {
+        }
+
+        public OptionsInfo(OptionsConfigInfo configInfo) {
+            this.configInfo = configInfo;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -64676736;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1583,6 +1670,36 @@ public class TonApi {
     /**
      * 
      */
+    public static class TvmList extends Object {
+        public TvmStackEntry[] elements;
+
+        /**
+         * 
+         */
+        public TvmList() {
+        }
+
+        public TvmList(TvmStackEntry[] elements) {
+            this.elements = elements;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1270320392;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
     public static class TvmNumberDecimal extends Object {
         public String number;
 
@@ -1724,6 +1841,60 @@ public class TonApi {
         }
     }
 
+    public static class TvmStackEntryTuple extends TvmStackEntry {
+        public TvmTuple tuple;
+
+        /**
+         * 
+         */
+        public TvmStackEntryTuple() {
+        }
+
+        public TvmStackEntryTuple(TvmTuple tuple) {
+            this.tuple = tuple;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -157391908;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class TvmStackEntryList extends TvmStackEntry {
+        public TvmList list;
+
+        /**
+         * 
+         */
+        public TvmStackEntryList() {
+        }
+
+        public TvmStackEntryList(TvmList list) {
+            this.list = list;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1186714229;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
     public static class TvmStackEntryUnsupported extends TvmStackEntry {
 
         /**
@@ -1736,6 +1907,36 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 378880498;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class TvmTuple extends Object {
+        public TvmStackEntry[] elements;
+
+        /**
+         * 
+         */
+        public TvmTuple() {
+        }
+
+        public TvmTuple(TvmStackEntry[] elements) {
+            this.elements = elements;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1363953053;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1838,6 +2039,76 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1079249978;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class WalletV3AccountState extends Object {
+        public long balance;
+        public long walletId;
+        public int seqno;
+        public InternalTransactionId lastTransactionId;
+        public long syncUtime;
+
+        /**
+         * 
+         */
+        public WalletV3AccountState() {
+        }
+
+        public WalletV3AccountState(long balance, long walletId, int seqno, InternalTransactionId lastTransactionId, long syncUtime) {
+            this.balance = balance;
+            this.walletId = walletId;
+            this.seqno = seqno;
+            this.lastTransactionId = lastTransactionId;
+            this.syncUtime = syncUtime;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1977698154;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     */
+    public static class WalletV3InitialAccountState extends Object {
+        public String publicKey;
+        public long walletId;
+
+        /**
+         * 
+         */
+        public WalletV3InitialAccountState() {
+        }
+
+        public WalletV3InitialAccountState(String publicKey, long walletId) {
+            this.publicKey = publicKey;
+            this.walletId = walletId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 283460879;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2650,7 +2921,7 @@ public class TonApi {
     /**
      * 
      *
-     * <p> Returns {@link Ok Ok} </p>
+     * <p> Returns {@link OptionsInfo OptionsInfo} </p>
      */
     public static class Init extends Function {
         public Options options;
@@ -2658,7 +2929,7 @@ public class TonApi {
         /**
          * Default constructor for a function, which 
          *
-         * <p> Returns {@link Ok Ok} </p>
+         * <p> Returns {@link OptionsInfo OptionsInfo} </p>
          */
         public Init() {
         }
@@ -2670,7 +2941,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2014661877;
+        public static final int CONSTRUCTOR = -1000594762;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2823,7 +3094,7 @@ public class TonApi {
     /**
      * 
      *
-     * <p> Returns {@link Ok Ok} </p>
+     * <p> Returns {@link OptionsConfigInfo OptionsConfigInfo} </p>
      */
     public static class OptionsSetConfig extends Function {
         public Config config;
@@ -2831,7 +3102,7 @@ public class TonApi {
         /**
          * Default constructor for a function, which 
          *
-         * <p> Returns {@link Ok Ok} </p>
+         * <p> Returns {@link OptionsConfigInfo OptionsConfigInfo} </p>
          */
         public OptionsSetConfig() {
         }
@@ -2843,7 +3114,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 646497241;
+        public static final int CONSTRUCTOR = 1870064579;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2857,7 +3128,7 @@ public class TonApi {
     /**
      * 
      *
-     * <p> Returns {@link Ok Ok} </p>
+     * <p> Returns {@link OptionsConfigInfo OptionsConfigInfo} </p>
      */
     public static class OptionsValidateConfig extends Function {
         public Config config;
@@ -2865,7 +3136,7 @@ public class TonApi {
         /**
          * Default constructor for a function, which 
          *
-         * <p> Returns {@link Ok Ok} </p>
+         * <p> Returns {@link OptionsConfigInfo OptionsConfigInfo} </p>
          */
         public OptionsValidateConfig() {
         }
@@ -2877,7 +3148,7 @@ public class TonApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1146765779;
+        public static final int CONSTRUCTOR = -346965447;
 
         /**
          * @return this.CONSTRUCTOR
@@ -4063,6 +4334,40 @@ public class TonApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 297317621;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * 
+     *
+     * <p> Returns {@link AccountAddress AccountAddress} </p>
+     */
+    public static class WalletV3GetAccountAddress extends Function {
+        public WalletV3InitialAccountState inititalAccountState;
+
+        /**
+         * Default constructor for a function, which 
+         *
+         * <p> Returns {@link AccountAddress AccountAddress} </p>
+         */
+        public WalletV3GetAccountAddress() {
+        }
+
+        public WalletV3GetAccountAddress(WalletV3InitialAccountState inititalAccountState) {
+            this.inititalAccountState = inititalAccountState;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1011655671;
 
         /**
          * @return this.CONSTRUCTOR
