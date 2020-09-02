@@ -1,11 +1,34 @@
 #!/bin/bash
 
+
+if [ -z "$1"} ]; 
+then echo "Enter TON git url."; exit; 
+fi
+
+echo
+echo "TON will be pulled from $1"
+
+if [ -n "$2"} ]; 
+then echo "Commit is $2"; 
+fi
+
+echo
+
+
 cd build
 
 rm -rf ton || true
 
-git clone git://github.com/ton-blockchain/ton
+git clone $1 ton
+
 cd ton
+
+if [ -n "$2"} ]; 
+then git checkout $2;
+fi
+
+
+
 
 git submodule init
 git submodule update
@@ -21,7 +44,7 @@ mkdir build
 cd build
 
 cmake ..
-cmake ..
+
 
 cmake --build . --target prepare_cross_compiling
 cmake --build .
