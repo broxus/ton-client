@@ -31,8 +31,8 @@ You can use [docker](docker/Dockerfile) container to build native-lib from sourc
 # prepare builder container with all needed dependencies
 docker build --tag ton-builder -f docker/Dockerfile .
 
-# now run build process
-docker run -ti --rm --mount type=bind,source="$(pwd)/build",target=/workdir/build ton-builder
+# now run build process where GIT_URL is your ton repository, COMMIT_SHA (defaulat master HEAD) sha1 of commit to build
+docker run -ti --rm --mount type=bind,source="$(pwd)/build",target=/workdir/build ton-builder GIT_URL COMMIT_SHA
 
 # copy native lib and updated src
 cp build/ton/example/android/build/libnative-lib.so src/main/resources/nativelib/libnative-lib.so
