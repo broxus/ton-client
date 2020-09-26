@@ -12,7 +12,6 @@ RUN apt-get update && apt-get upgrade -y && \
 
 WORKDIR /workdir
 
-COPY docker/tl tl
 COPY docker/example example
 COPY docker/entrypoint.sh entrypoint.sh
 

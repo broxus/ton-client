@@ -33,7 +33,6 @@ fi
 git submodule init
 git submodule update
 
-cp /workdir/tl/CMakeLists.txt /workdir/build/ton/tl/CMakeLists.txt
 cp /workdir/example/android/CMakeLists.txt /workdir/build/ton/example/android/CMakeLists.txt
 cp /workdir/example/android/native-lib.cpp /workdir/build/ton/example/android/native-lib.cpp
 
