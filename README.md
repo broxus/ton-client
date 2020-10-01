@@ -31,12 +31,15 @@ You can use [docker](docker/Dockerfile) container to build native-lib from sourc
 # prepare builder container with all needed dependencies
 docker build --tag ton-builder -f docker/Dockerfile .
 
-# now run build process where GIT_URL is your ton repository, COMMIT_SHA (defaulat master HEAD) sha1 of commit to build
-docker run -ti --rm --mount type=bind,source="$(pwd)/build",target=/workdir/build ton-builder GIT_URL COMMIT_SHA
+# now run build process where:
+#  GIT_URL is your ton repository
+#  COMMIT_SHA (defaulat master HEAD) sha1 of commit to build
+#  BUILD_THREAD_COUNT (default is 1) is number of threads used for building
+docker run -ti --rm --mount type=bind,source="$(pwd)/build",target=/workdir/build ton-builder url=GIT_URL commit=COMMIT_SHA threads=BUILD_THREAD_COUNT
 
 # copy native lib and updated src
-cp build/ton/example/android/build/libnative-lib.so src/main/resources/nativelib/libnative-lib.so
-cp build/ton/example/android/src/io/broxus/ton/TonApi.java src/main/java/io/broxus/ton/TonApi.java
+cp build/ton/build/native-lib/libnative-lib.so src/main/resources/nativelib/libnative-lib.so
+cp build/ton/native-lib/src/com/broxus/ton/TonApi.java src/main/java/com/broxus/ton/TonApi.java
 ```
 
 Example
