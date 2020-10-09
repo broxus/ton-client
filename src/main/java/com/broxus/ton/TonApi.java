@@ -1930,28 +1930,6 @@ public class TonApi {
         }
     }
 
-    public static class TonBlockId extends Object {
-        public int workchain;
-        public long shard;
-        public int seqno;
-
-        public TonBlockId() {
-        }
-
-        public TonBlockId(int workchain, long shard, int seqno) {
-            this.workchain = workchain;
-            this.shard = shard;
-            this.seqno = seqno;
-        }
-
-        public static final int CONSTRUCTOR = -1185382494;
-
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
     public static class InternalTransactionId extends Object {
         public long lt;
         public byte[] hash;
@@ -1993,20 +1971,20 @@ public class TonApi {
     }
 
     public static class LiteServerAllShardsInfo extends Object {
-        public TonBlockIdExt id;
-        public byte[] proof;
-        public byte[] data;
+        public int minShardGenUtime;
+        public int maxShardGenUtime;
+        public LiteServerShardHash[] shards;
 
         public LiteServerAllShardsInfo() {
         }
 
-        public LiteServerAllShardsInfo(TonBlockIdExt id, byte[] proof, byte[] data) {
-            this.id = id;
-            this.proof = proof;
-            this.data = data;
+        public LiteServerAllShardsInfo(int minShardGenUtime, int maxShardGenUtime, LiteServerShardHash[] shards) {
+            this.minShardGenUtime = minShardGenUtime;
+            this.maxShardGenUtime = maxShardGenUtime;
+            this.shards = shards;
         }
 
-        public static final int CONSTRUCTOR = -1744220582;
+        public static final int CONSTRUCTOR = -59710865;
 
         @Override
         public int getConstructor() {
@@ -2014,19 +1992,29 @@ public class TonApi {
         }
     }
 
-    public static class LiteServerBlockData extends Object {
+    public static class LiteServerBlock extends Object {
         public TonBlockIdExt id;
-        public byte[] data;
+        public TonBlockIdExt masterchainId;
+        public LiteServerBlockInfo info;
+        public TonBlockIdExt[] previous;
+        public TonBlockId[] next;
+        public LiteServerAllShardsInfo shards;
+        public LiteServerTransaction[] transactions;
 
-        public LiteServerBlockData() {
+        public LiteServerBlock() {
         }
 
-        public LiteServerBlockData(TonBlockIdExt id, byte[] data) {
+        public LiteServerBlock(TonBlockIdExt id, TonBlockIdExt masterchainId, LiteServerBlockInfo info, TonBlockIdExt[] previous, TonBlockId[] next, LiteServerAllShardsInfo shards, LiteServerTransaction[] transactions) {
             this.id = id;
-            this.data = data;
+            this.masterchainId = masterchainId;
+            this.info = info;
+            this.previous = previous;
+            this.next = next;
+            this.shards = shards;
+            this.transactions = transactions;
         }
 
-        public static final int CONSTRUCTOR = -169816867;
+        public static final int CONSTRUCTOR = 1259646767;
 
         @Override
         public int getConstructor() {
@@ -2049,6 +2037,60 @@ public class TonApi {
         }
 
         public static final int CONSTRUCTOR = 2071862837;
+
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class LiteServerBlockInfo extends Object {
+        public int version;
+        public boolean notMaster;
+        public boolean afterMerge;
+        public boolean beforeSplit;
+        public boolean afterSplit;
+        public boolean wantSplit;
+        public boolean wantMerge;
+        public boolean keyBlock;
+        public boolean vertSeqnoIncr;
+        public int flags;
+        public int seqNo;
+        public int vertSeqNo;
+        public int genUtime;
+        public long startLt;
+        public long endLt;
+        public int genValidatorListHashShort;
+        public int genCatchainSeqno;
+        public int minRefMcSeqno;
+        public int prevKeyBlockSeqno;
+
+        public LiteServerBlockInfo() {
+        }
+
+        public LiteServerBlockInfo(int version, boolean notMaster, boolean afterMerge, boolean beforeSplit, boolean afterSplit, boolean wantSplit, boolean wantMerge, boolean keyBlock, boolean vertSeqnoIncr, int flags, int seqNo, int vertSeqNo, int genUtime, long startLt, long endLt, int genValidatorListHashShort, int genCatchainSeqno, int minRefMcSeqno, int prevKeyBlockSeqno) {
+            this.version = version;
+            this.notMaster = notMaster;
+            this.afterMerge = afterMerge;
+            this.beforeSplit = beforeSplit;
+            this.afterSplit = afterSplit;
+            this.wantSplit = wantSplit;
+            this.wantMerge = wantMerge;
+            this.keyBlock = keyBlock;
+            this.vertSeqnoIncr = vertSeqnoIncr;
+            this.flags = flags;
+            this.seqNo = seqNo;
+            this.vertSeqNo = vertSeqNo;
+            this.genUtime = genUtime;
+            this.startLt = startLt;
+            this.endLt = endLt;
+            this.genValidatorListHashShort = genValidatorListHashShort;
+            this.genCatchainSeqno = genCatchainSeqno;
+            this.minRefMcSeqno = minRefMcSeqno;
+            this.prevKeyBlockSeqno = prevKeyBlockSeqno;
+        }
+
+        public static final int CONSTRUCTOR = 1195174009;
 
         @Override
         public int getConstructor() {
@@ -2115,30 +2157,6 @@ public class TonApi {
         }
     }
 
-    public static class LiteServerBlockState extends Object {
-        public TonBlockIdExt id;
-        public byte[] rootHash;
-        public byte[] fileHash;
-        public byte[] data;
-
-        public LiteServerBlockState() {
-        }
-
-        public LiteServerBlockState(TonBlockIdExt id, byte[] rootHash, byte[] fileHash, byte[] data) {
-            this.id = id;
-            this.rootHash = rootHash;
-            this.fileHash = fileHash;
-            this.data = data;
-        }
-
-        public static final int CONSTRUCTOR = -122635103;
-
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
     public static class LiteServerBlockTransactions extends Object {
         public TonBlockIdExt id;
         public int reqCount;
@@ -2166,22 +2184,22 @@ public class TonApi {
     }
 
     public static class LiteServerConfigInfo extends Object {
-        public int mode;
         public TonBlockIdExt id;
-        public byte[] stateProof;
-        public byte[] configProof;
+        public LiteServerValidatorSet prevVset;
+        public LiteServerValidatorSet currVset;
+        public LiteServerValidatorSet nextVset;
 
         public LiteServerConfigInfo() {
         }
 
-        public LiteServerConfigInfo(int mode, TonBlockIdExt id, byte[] stateProof, byte[] configProof) {
-            this.mode = mode;
+        public LiteServerConfigInfo(TonBlockIdExt id, LiteServerValidatorSet prevVset, LiteServerValidatorSet currVset, LiteServerValidatorSet nextVset) {
             this.id = id;
-            this.stateProof = stateProof;
-            this.configProof = configProof;
+            this.prevVset = prevVset;
+            this.currVset = currVset;
+            this.nextVset = nextVset;
         }
 
-        public static final int CONSTRUCTOR = -1409464804;
+        public static final int CONSTRUCTOR = 1709023637;
 
         @Override
         public int getConstructor() {
@@ -2243,7 +2261,7 @@ public class TonApi {
             this.init = init;
         }
 
-        public static final int CONSTRUCTOR = -486283992;
+        public static final int CONSTRUCTOR = 1212773193;
 
         @Override
         public int getConstructor() {
@@ -2254,20 +2272,20 @@ public class TonApi {
     public static class LiteServerMessage extends Object {
         public byte[] hash;
         public LiteServerMessageInfo info;
-        public boolean hasInit;
-        public boolean hasBody;
+        public byte[] init;
+        public byte[] body;
 
         public LiteServerMessage() {
         }
 
-        public LiteServerMessage(byte[] hash, LiteServerMessageInfo info, boolean hasInit, boolean hasBody) {
+        public LiteServerMessage(byte[] hash, LiteServerMessageInfo info, byte[] init, byte[] body) {
             this.hash = hash;
             this.info = info;
-            this.hasInit = hasInit;
-            this.hasBody = hasBody;
+            this.init = init;
+            this.body = body;
         }
 
-        public static final int CONSTRUCTOR = -153998228;
+        public static final int CONSTRUCTOR = -2140704406;
 
         @Override
         public int getConstructor() {
@@ -2531,23 +2549,45 @@ public class TonApi {
         }
     }
 
-    public static class LiteServerShardInfo extends Object {
-        public TonBlockIdExt id;
-        public TonBlockIdExt shardblk;
-        public byte[] shardProof;
-        public byte[] shardDescr;
+    public static class LiteServerShardHash extends Object {
+        public int workchain;
+        public long id;
+        public TonBlockIdExt topBlockId;
+        public long startLt;
+        public long endLt;
+        public boolean beforeSplit;
+        public boolean beforeMerge;
+        public boolean wantSplit;
+        public boolean wantMerge;
+        public int nextCatchainSeqno;
+        public long nextValidatorShard;
+        public int minRefMcSeqno;
+        public int genUtime;
+        public byte[] feesCollected;
+        public byte[] fundsCollected;
 
-        public LiteServerShardInfo() {
+        public LiteServerShardHash() {
         }
 
-        public LiteServerShardInfo(TonBlockIdExt id, TonBlockIdExt shardblk, byte[] shardProof, byte[] shardDescr) {
+        public LiteServerShardHash(int workchain, long id, TonBlockIdExt topBlockId, long startLt, long endLt, boolean beforeSplit, boolean beforeMerge, boolean wantSplit, boolean wantMerge, int nextCatchainSeqno, long nextValidatorShard, int minRefMcSeqno, int genUtime, byte[] feesCollected, byte[] fundsCollected) {
+            this.workchain = workchain;
             this.id = id;
-            this.shardblk = shardblk;
-            this.shardProof = shardProof;
-            this.shardDescr = shardDescr;
+            this.topBlockId = topBlockId;
+            this.startLt = startLt;
+            this.endLt = endLt;
+            this.beforeSplit = beforeSplit;
+            this.beforeMerge = beforeMerge;
+            this.wantSplit = wantSplit;
+            this.wantMerge = wantMerge;
+            this.nextCatchainSeqno = nextCatchainSeqno;
+            this.nextValidatorShard = nextValidatorShard;
+            this.minRefMcSeqno = minRefMcSeqno;
+            this.genUtime = genUtime;
+            this.feesCollected = feesCollected;
+            this.fundsCollected = fundsCollected;
         }
 
-        public static final int CONSTRUCTOR = -972734932;
+        public static final int CONSTRUCTOR = 297431349;
 
         @Override
         public int getConstructor() {
@@ -2843,6 +2883,58 @@ public class TonApi {
         }
 
         public static final int CONSTRUCTOR = -1817735918;
+
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class LiteServerValidator extends Object {
+        public byte[] pubkey;
+        public byte[] adnlAddr;
+        public long weight;
+        public long cumWeight;
+
+        public LiteServerValidator() {
+        }
+
+        public LiteServerValidator(byte[] pubkey, byte[] adnlAddr, long weight, long cumWeight) {
+            this.pubkey = pubkey;
+            this.adnlAddr = adnlAddr;
+            this.weight = weight;
+            this.cumWeight = cumWeight;
+        }
+
+        public static final int CONSTRUCTOR = -2019586036;
+
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class LiteServerValidatorSet extends Object {
+        public int utimeSince;
+        public int utimeUntil;
+        public int total;
+        public int main;
+        public long totalWeight;
+        public LiteServerValidator[] list;
+
+        public LiteServerValidatorSet() {
+        }
+
+        public LiteServerValidatorSet(int utimeSince, int utimeUntil, int total, int main, long totalWeight, LiteServerValidator[] list) {
+            this.utimeSince = utimeSince;
+            this.utimeUntil = utimeUntil;
+            this.total = total;
+            this.main = main;
+            this.totalWeight = totalWeight;
+            this.list = list;
+        }
+
+        public static final int CONSTRUCTOR = -248595103;
 
         @Override
         public int getConstructor() {
@@ -3347,24 +3439,28 @@ public class TonApi {
         public long fwdFee;
         public long ihrFee;
         public long createdLt;
+        public boolean bounce;
+        public boolean bounced;
         public byte[] bodyHash;
         public MsgData msgData;
 
         public RawMessage() {
         }
 
-        public RawMessage(AccountAddress source, AccountAddress destination, long value, long fwdFee, long ihrFee, long createdLt, byte[] bodyHash, MsgData msgData) {
+        public RawMessage(AccountAddress source, AccountAddress destination, long value, long fwdFee, long ihrFee, long createdLt, boolean bounce, boolean bounced, byte[] bodyHash, MsgData msgData) {
             this.source = source;
             this.destination = destination;
             this.value = value;
             this.fwdFee = fwdFee;
             this.ihrFee = ihrFee;
             this.createdLt = createdLt;
+            this.bounce = bounce;
+            this.bounced = bounced;
             this.bodyHash = bodyHash;
             this.msgData = msgData;
         }
 
-        public static final int CONSTRUCTOR = 1368093263;
+        public static final int CONSTRUCTOR = 1337874549;
 
         @Override
         public int getConstructor() {
@@ -3376,6 +3472,8 @@ public class TonApi {
         public long utime;
         public byte[] data;
         public InternalTransactionId transactionId;
+        public boolean aborted;
+        public boolean destroyed;
         public long fee;
         public long storageFee;
         public long otherFee;
@@ -3385,10 +3483,12 @@ public class TonApi {
         public RawTransaction() {
         }
 
-        public RawTransaction(long utime, byte[] data, InternalTransactionId transactionId, long fee, long storageFee, long otherFee, RawMessage inMsg, RawMessage[] outMsgs) {
+        public RawTransaction(long utime, byte[] data, InternalTransactionId transactionId, boolean aborted, boolean destroyed, long fee, long storageFee, long otherFee, RawMessage inMsg, RawMessage[] outMsgs) {
             this.utime = utime;
             this.data = data;
             this.transactionId = transactionId;
+            this.aborted = aborted;
+            this.destroyed = destroyed;
             this.fee = fee;
             this.storageFee = storageFee;
             this.otherFee = otherFee;
@@ -3396,7 +3496,7 @@ public class TonApi {
             this.outMsgs = outMsgs;
         }
 
-        public static final int CONSTRUCTOR = 1887601793;
+        public static final int CONSTRUCTOR = -416313446;
 
         @Override
         public int getConstructor() {
@@ -3561,6 +3661,28 @@ public class TonApi {
         }
     }
 
+    public static class TonBlockId extends Object {
+        public int workchain;
+        public long shard;
+        public int seqno;
+
+        public TonBlockId() {
+        }
+
+        public TonBlockId(int workchain, long shard, int seqno) {
+            this.workchain = workchain;
+            this.shard = shard;
+            this.seqno = seqno;
+        }
+
+        public static final int CONSTRUCTOR = -1441288624;
+
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
     public static class TonBlockIdExt extends Object {
         public int workchain;
         public long shard;
@@ -3580,6 +3702,24 @@ public class TonApi {
         }
 
         public static final int CONSTRUCTOR = 2031156378;
+
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class TonBlockIds extends Object {
+        public TonBlockId[] ids;
+
+        public TonBlockIds() {
+        }
+
+        public TonBlockIds(TonBlockId[] ids) {
+            this.ids = ids;
+        }
+
+        public static final int CONSTRUCTOR = -1589584321;
 
         @Override
         public int getConstructor() {
@@ -3851,6 +3991,24 @@ public class TonApi {
         }
 
         public static final int CONSTRUCTOR = -1187782273;
+
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    public static class ComputeLastBlockIds extends Function {
+        public TonBlockId[] topBlocks;
+
+        public ComputeLastBlockIds() {
+        }
+
+        public ComputeLastBlockIds(TonBlockId[] topBlocks) {
+            this.topBlocks = topBlocks;
+        }
+
+        public static final int CONSTRUCTOR = -1462062750;
 
         @Override
         public int getConstructor() {
@@ -4528,24 +4686,6 @@ public class TonApi {
         }
     }
 
-    public static class LiteServerGetAllShardsInfo extends Function {
-        public TonBlockIdExt id;
-
-        public LiteServerGetAllShardsInfo() {
-        }
-
-        public LiteServerGetAllShardsInfo(TonBlockIdExt id) {
-            this.id = id;
-        }
-
-        public static final int CONSTRUCTOR = 403683912;
-
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
     public static class LiteServerGetBlock extends Function {
         public TonBlockIdExt id;
 
@@ -4556,7 +4696,7 @@ public class TonApi {
             this.id = id;
         }
 
-        public static final int CONSTRUCTOR = -2109607010;
+        public static final int CONSTRUCTOR = -843415714;
 
         @Override
         public int getConstructor() {
@@ -4607,18 +4747,16 @@ public class TonApi {
     }
 
     public static class LiteServerGetConfigAll extends Function {
-        public int mode;
         public TonBlockIdExt id;
 
         public LiteServerGetConfigAll() {
         }
 
-        public LiteServerGetConfigAll(int mode, TonBlockIdExt id) {
-            this.mode = mode;
+        public LiteServerGetConfigAll(TonBlockIdExt id) {
             this.id = id;
         }
 
-        public static final int CONSTRUCTOR = -791528606;
+        public static final int CONSTRUCTOR = 2136311253;
 
         @Override
         public int getConstructor() {
@@ -4689,48 +4827,6 @@ public class TonApi {
         }
 
         public static final int CONSTRUCTOR = 2026128641;
-
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    public static class LiteServerGetShardInfo extends Function {
-        public TonBlockIdExt id;
-        public int workchain;
-        public long shard;
-        public boolean exact;
-
-        public LiteServerGetShardInfo() {
-        }
-
-        public LiteServerGetShardInfo(TonBlockIdExt id, int workchain, long shard, boolean exact) {
-            this.id = id;
-            this.workchain = workchain;
-            this.shard = shard;
-            this.exact = exact;
-        }
-
-        public static final int CONSTRUCTOR = 1944785441;
-
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    public static class LiteServerGetState extends Function {
-        public TonBlockIdExt id;
-
-        public LiteServerGetState() {
-        }
-
-        public LiteServerGetState(TonBlockIdExt id) {
-            this.id = id;
-        }
-
-        public static final int CONSTRUCTOR = -1749927932;
 
         @Override
         public int getConstructor() {
@@ -4819,7 +4915,7 @@ public class TonApi {
             this.utime = utime;
         }
 
-        public static final int CONSTRUCTOR = -84630839;
+        public static final int CONSTRUCTOR = 1635869919;
 
         @Override
         public int getConstructor() {
